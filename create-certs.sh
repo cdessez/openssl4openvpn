@@ -43,7 +43,7 @@ openssl req -new -batch \
       -subj "/CN=$SERVER_CN/name=$SERVER_CN" \
       -newkey rsa:1024 -keyout "$SERVER_CN.key" -out "$SERVER_CN.csr" -days 1900 -utf8 -nodes -config "$CNF_FILE" \
       -extensions server
-chmod 600 "$CLIENT_CN.key"
+chmod 600 "$SERVER_CN.key"
 
 # Sign my own certificate to use it for the server side
 openssl ca -batch -keyfile "$CA_CN.key" -cert "$CA_CN.crt" -in "$SERVER_CN.csr" -out "$SERVER_CN.crt" -config "$CNF_FILE" \
@@ -54,7 +54,8 @@ openssl ca -batch -keyfile "$CA_CN.key" -cert "$CA_CN.crt" -in "$SERVER_CN.csr" 
 # Create the certificate request
 openssl req -new -batch \
       -subj "/CN=$CLIENT_CN/name=$CLIENT_CN" \
-      -newkey rsa:1024 -keyout "$CLIENT_CN.key" -out "$CLIENT_CN.csr" -days 1900 -utf8 -nodes -config "$CNF_FILE" \
+      -newkey rsa:1024 -keyout "$CLIENT_CN.key" -out "$CLIENT_CN.csr" -days 1900 -utf8 -nodes -config "$CNF_FILE" 
+chmod 600 "$CLIENT_CN.key"
 
 
 ## DH
